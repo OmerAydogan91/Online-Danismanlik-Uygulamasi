@@ -1,0 +1,44 @@
+﻿
+@using DanismanlikSite.Models
+@model IEnumerable<tbl_Proje>
+
+<div class="features_items">
+  
+    <h2 class="title text-center">Son Eklenen Projeler</h2>
+    @foreach (var item in Model)
+    {
+        DB_DanismanlikEntities db = new DB_DanismanlikEntities();
+
+        var kapakFoto = db.tbl_ProjeFoto.ToList().Where(t => t.id_Proje == item.id_Proje).First().FotoURL;
+
+        <div class="col-sm-3" style="height:400px">
+            <div>
+                <div class="single-products">
+                    <div class="productinfo text-center">
+
+                        @if (kapakFoto != null)
+                        {
+                            <a href="~/Anasayfa/ProjeDetay/@item.id_Proje">
+                                <img src="~/Images/@kapakFoto" alt="" height="175" width="150" />
+                            </a>
+                        }
+
+
+                        @if (kapakFoto == null)
+                        {
+                            <a href="~/Anasayfa/ProjeDetay/@item.id_Proje"><img src="~/Images/urungorseli.jpg" height="125" width="125" /></a>
+                        }
+                        <p>@item.ProjeAdi</p>
+                    </div>
+                </div>
+                <div class="choose">
+                    <ul class="nav nav-pills nav-justified">
+                        <li><a href="~/Anasayfa/ProjeDetay/@item.id_Proje"><i class="fa fa-plus-square"></i>Proje Detayına Git</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+

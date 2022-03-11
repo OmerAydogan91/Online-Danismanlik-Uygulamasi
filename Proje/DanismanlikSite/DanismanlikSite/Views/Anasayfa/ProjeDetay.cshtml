@@ -1,0 +1,224 @@
+﻿@using DanismanlikSite.Models
+@model tbl_Proje
+
+@{
+    ViewBag.Title = "ProjeDetay";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+
+<style type="text/css">
+    .container.gallery-container {
+        background-color: #fff;
+        color: #35373a;
+        min-height: 100vh;
+        padding: 30px 50px;
+    }
+
+    .gallery-container h1 {
+        text-align: center;
+        margin-top: 50px;
+        font-family: 'Droid Sans', sans-serif;
+        font-weight: bold;
+    }
+
+    .gallery-container p.page-description {
+        text-align: center;
+        margin: 25px auto;
+        font-size: 18px;
+        color: #999;
+    }
+
+    .tz-gallery {
+        padding: 40px;
+    }
+
+        .tz-gallery .row > div {
+            padding: 2px;
+        }
+
+        .tz-gallery .lightbox img {
+            width: 100%;
+            border-radius: 0;
+            position: relative;
+        }
+
+        .tz-gallery .lightbox:before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -13px;
+            margin-left: -13px;
+            opacity: 0;
+            color: #fff;
+            font-size: 26px;
+            font-family: 'Glyphicons Halflings';
+            content: '\e003';
+            pointer-events: none;
+            z-index: 9000;
+            transition: 0.4s;
+        }
+
+
+        .tz-gallery .lightbox:after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background-color: rgba(46, 132, 206, 0.7);
+            content: '';
+            transition: 0.4s;
+        }
+
+        .tz-gallery .lightbox:hover:after,
+        .tz-gallery .lightbox:hover:before {
+            opacity: 1;
+        }
+
+    .baguetteBox-button {
+        background-color: transparent !important;
+    }
+</style>
+
+
+
+@{
+
+    DB_DanismanlikEntities db = new DB_DanismanlikEntities();
+    var kapakFoto = db.tbl_ProjeFoto.Where(f => f.id_Proje == Model.id_Proje).First().FotoURL;
+}
+
+<div>
+    <div class="product-details">
+        <div class="col-sm-5">
+            <div class="view-product">
+
+                <a href=""><img src="~/Images/@kapakFoto" alt=""></a>
+
+            </div>
+
+        </div>
+        <div class="col-sm-7">
+            <div class="product-information">
+
+                <h2>@Model.ProjeAdi</h2> <hr />
+
+                <span>
+
+                    @if (Model.tbl_EkDosya.Count > 0)
+                    {
+                        <b style="color:orangered">Şablonu İndir : </b>
+                        <a class="badge" style="background-color: #cc0ec2;" href='~/Dosyalar/@Model.tbl_EkDosya.First().EkDosyaURL'>@Model.tbl_EkDosya.First().EkDosyaAd</a>
+                    }
+
+                </span>
+
+            </div>
+        </div>
+    </div>
+
+    <h5 class="card-title text-muted text-uppercase text-center">Proje Fotoğrafları</h5>
+
+    <div>
+        <div class="tz-gallery" style="padding:0">
+            <div class="row">
+
+                @foreach (var item in db.tbl_ProjeFoto.Where(f => f.id_Proje == Model.id_Proje))
+                {
+                    <div class="col-sm-12 col-md-4">
+                        <a class="lightbox" href="~/Images/@item.FotoURL">
+                            <img src="~/Images/@item.FotoURL" style="height:250px" />
+                        </a>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div><br />
+
+    @{
+        var yorumToplami = db.tbl_Yorum.Where(t => t.id_Proje == Model.id_Proje && t.OnaylandiMi == true).Count();
+
+    }
+
+    <div class="category-tab shop-details-tab">
+       
+        <div class="col-sm-12">
+            <ul class="nav nav-tabs">
+                <li><a href="#details" data-toggle="tab">Proje Açıklaması</a></li>
+                <li class="active"><a href="#reviews" data-toggle="tab">Yorumlar (@yorumToplami)</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade" id="details">
+
+                <textarea style="height:500px">@Model.Aciklama</textarea>
+
+            </div>
+
+            <div class="tab-pane fade active in" id="reviews">
+                <div class="col-sm-12">
+                    <form>
+                        <input name="ProductId" value="@Model.id_Proje" class="hide" />
+                        <input name="UserId" value="@User.Identity.Name" class="hide" />
+                        @{
+
+                            var ProjeYorumları = db.tbl_Yorum.Join(
+                            db.tbl_Kullanici,
+                            yorum => yorum.id_Kullanici,
+                            kullanici => kullanici.id_Kullanici,
+                            (yorum, kullanici) => new { Yorum = yorum, Kullanici = kullanici }).
+                            Where(x => x.Yorum.id_Proje == Model.id_Proje && x.Yorum.OnaylandiMi == true).
+                            OrderByDescending(x => x.Yorum.id_Yorum).ToList();
+
+
+                            ViewBag.Yorum = ProjeYorumları;
+                        }
+
+                        @foreach (var item in ViewBag.Yorum)
+                        {
+                            <ul>
+                                <li><a href=""><i class="fa fa-user"></i>@item.Kullanici.AdSoyad</a></li>
+
+                                <li><a href=""><i class="fa fa-calendar-o"></i>@item.Yorum.YorumTarihi.ToString("MM/dd/yyyy")</a></li>
+                            </ul>
+                            <p>@item.Yorum.Yorum</p>
+
+                            <hr />
+                        }
+                    </form>
+
+                    <p><b>Yorumunu Yaz</b></p>
+
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <span>Yorum yazmak için sisteme <a href="~/Kullanici/GirisYap">giriş yap</a></span>
+                    }
+                    else
+                    {
+                        <form method="post" action="~/Anasayfa/YorumYap">
+                            <input name="id_Proje" value="@Model.id_Proje" class="hide" />
+                            <input name="id_Kullanici" value="@User.Identity.Name" class="hide" />
+
+                            <textarea name="Yorum" required placeholder="Yorumun onaylandıktan sonra görünecek.."></textarea>
+
+                            <button type="submit" class="btn btn-default pull-right">
+                                Yorum Yap
+                            </button>
+                        </form>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+<script>
+    baguetteBox.run('.tz-gallery');
+</script>

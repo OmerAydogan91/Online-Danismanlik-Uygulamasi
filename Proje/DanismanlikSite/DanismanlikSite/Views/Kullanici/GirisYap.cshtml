@@ -1,0 +1,28 @@
+﻿
+@using DanismanlikSite.Models
+@model IEnumerable<tbl_Kullanici>
+
+@{
+    ViewBag.Title = "GirisYap";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="login-form">
+                    <!--login form-->
+                    <h2>Sisteme Giriş Yap</h2>
+                    <form action="~/Kullanici/GirisYap" method="post">
+                        <input type="email" name="Eposta" placeholder="Eposta" required />
+                        <input type="password" name="Sifre" placeholder="Şifre" required />
+                        <button type="submit" style="float:right" class="btn btn-default">Giriş Yap</button>
+                        <span style="color:darkred">@ViewBag.Uyari</span>
+
+                    </form>
+                </div><!--/login form-->
+            </div>
+        </div>
+    </div>

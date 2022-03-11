@@ -1,0 +1,220 @@
+﻿@using DanismanlikSite.Models
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Anasayfa | Danışmanlık,Proje</title>
+    <link href="~/Content/template/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/template/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/template/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/Content/template/css/price-range.css" rel="stylesheet">
+    <link href="~/Content/template/css/animate.css" rel="stylesheet">
+    <link href="~/Content/template/css/main.css" rel="stylesheet" />
+    <link href="~/Content/template/css/responsive.css" rel="stylesheet">
+   
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Content/template/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Content/template/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Content/template/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/Content/template/images/ico/apple-touch-icon-57-precomposed.png">
+
+</head><!--/head-->
+<body>
+    <header id="header">
+        <!--header-->
+        <div class="header-middle">
+            <!--header-middle-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="logo pull-left">
+                            <a href="~/Anasayfa/Index"><img src="~/Content/template/images/sitelogo.png" /></a>
+                            
+                        </div>
+                        <div class="btn-group pull-right">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="shop-menu pull-right">
+
+                            <ul class="nav navbar-nav">
+                                @{
+                                    DB_DanismanlikEntities db = new DB_DanismanlikEntities();
+
+                                    if (User.Identity.IsAuthenticated)
+                                    {
+                                        tbl_Kullanici kullanici = new tbl_Kullanici();
+                                        int id = Convert.ToInt32(User.Identity.Name);
+                                        kullanici.AdSoyad = db.tbl_Kullanici.Where(x => x.id_Kullanici == id).Select(x => x.AdSoyad).First().ToString();
+
+                                        <li><a><i class="fa fa-user"></i>@kullanici.AdSoyad</a></li>
+
+                                        <li><a href="~/Kullanici/CikisYap"><i class="fa fa-lock"></i> Çıkış Yap</a></li>
+    
+                                    }
+
+
+                                    if (!User.Identity.IsAuthenticated)
+                                    {
+                                        <li><a href="~/Kullanici/GirisYap"><i class="fa fa-lock"></i> Giriş Yap</a></li>
+                                        <li><a href="~/Kullanici/UyeOl"><i class="fa fa-sign-in"></i> Üye Ol</a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-middle-->
+
+        <div class="header-bottom">
+            <!--header-bottom-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="mainmenu pull-left">
+                            <ul class="nav navbar-nav collapse navbar-collapse">
+                                <li><a href="~/Anasayfa/Index" class="active"><b>Anasayfa</b></a></li>
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                <li><a style="color:darkred" href="~/Anasayfa/ProjeEkle"><b>Proje Ekle</b></a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+
+                        @using (Html.BeginForm("SiteIciAra", "Anasayfa", FormMethod.Get))
+                        {
+                            <div class="search_box pull-right">
+                                <input type="search" name="ProjeAra" class="form-control" placeholder="Proje Ara.." required />
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-bottom-->
+    </header><!--/header-->
+
+    <br />
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="left-sidebar">
+
+                        <header class="panel-heading">
+                            <h2>Kategoriler</h2>
+                        </header>
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <ul class="nav prod-cat">
+                                  
+                                     <li>
+                                            @foreach (tbl_Kategori k in db.tbl_Kategori)
+                                            {                                               
+                                                    <ul class="nav">
+                                                        <li><a href="/Anasayfa/KategoriyeGoreProjeler/@k.id_Kategori" style="font-weight:bold;color:darkblue">@k.KategoriAdi</a></li>
+                                                    </ul>                                                
+                                            }
+                                      </li>
+                                    
+                                </ul>
+                            </div>                          
+                        </section>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-9 padding-right">
+
+                    @RenderBody()
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <!--Footer-->
+
+
+        <div class="footer-widget">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="single-widget">
+                            <h2>Kategoriler</h2>
+                            <ul class="nav nav-pills nav-stacked">
+                                
+                                @foreach (tbl_Kategori k in db.tbl_Kategori)
+                                {
+                                   
+                                  <li><a href="/Anasayfa/KategoriyeGoreProjeler/@k.id_Kategori">@k.KategoriAdi</a></li>
+
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <p class="pull-left">Tüm hakları saklıdır © 2021</p>
+                </div>
+            </div>
+        </div>
+    </footer><!--/Footer-->
+
+    <script src="~/Content/template/js/jquery.js"></script>
+    <script src="~/Content/template/js/bootstrap.min.js"></script>
+    <script src="~/Content/template/js/jquery.scrollUp.min.js"></script>
+    <script src="~/Content/template/js/price-range.js"></script>
+    <script src="~/Content/template/js/jquery.prettyPhoto.js"></script>
+    <script src="~/Content/template/js/main.js"></script>
+    <script src="~/Content/template/js/cookiejquery.js"></script>
+    <script src="~/Content/template/js/hoverdropdown.js"></script>
+    <script src="~/Content/template/js/accordion.js"></script>
+    <script src="~/Content/template/js/common.js"></script>
+    <!--flexslider-->
+    <script src="~/Content/shopx/assets/plugins/js/jquery.flexslider-min.js"></script>
+    <!-- init -->
+    <script src="~/Content/shopx/assets/js/init.js"></script>
+
+    <style>
+        .resizedInput {
+            width: 85px;
+            height: 40px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $(".activeTab div ul li:eq(0)").addClass("active");
+            $("#tab_0").addClass("active");
+        });
+    </script>
+</body>
+</html>

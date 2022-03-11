@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7fc40d19090940caa17dc5e262df9703" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_DanismanlikModel.sysdiagrams" Width="2.125" PointX="1.125" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_DanismanlikModel.tbl_EkDosya" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_DanismanlikModel.tbl_Kategori" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_DanismanlikModel.tbl_Kullanici" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_DanismanlikModel.tbl_KullaniciRol" Width="1.5" PointX="3.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_DanismanlikModel.tbl_Proje" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_DanismanlikModel.tbl_ProjeFoto" Width="1.5" PointX="5.125" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_DanismanlikModel.tbl_Yorum" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="DB_DanismanlikModel.FK_tbl_EkDosya_tbl_Proje" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_DanismanlikModel.FK_tbl_Proje_tbl_Kategori" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_DanismanlikModel.FK_tbl_Kullanici_tbl_KullaniciRol" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_DanismanlikModel.FK_tbl_Yorum_tbl_Kullanici" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_DanismanlikModel.FK_tbl_ProjeFoto_tbl_Proje" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_DanismanlikModel.FK_tbl_Yorum_tbl_Proje" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

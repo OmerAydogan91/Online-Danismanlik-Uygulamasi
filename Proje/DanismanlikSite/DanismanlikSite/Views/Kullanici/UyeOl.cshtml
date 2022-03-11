@@ -1,0 +1,24 @@
+﻿@using DanismanlikSite.Models
+@model IEnumerable<tbl_Kullanici>
+
+@{
+    ViewBag.Title = "UyeOl";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+<div class="col-sm-4" style="margin-left:200px;">
+    <div class="signup-form">
+        <!--sign up form-->
+        <h2>Hemen Üye Ol!</h2>
+        <form action="~/Kullanici/UyeOl" method="post">
+            <input type="text" name="AdSoyad" placeholder="Ad Soyad" required />
+            <input type="email" name="Eposta" placeholder="Eposta" required />
+            <input type="password" name="Sifre" placeholder="Şifre" required />
+ 
+            <br />
+            <button type="submit" style="float:right" class="btn btn-default">Üye Ol</button>
+        </form>
+    </div><!--/sign up form-->
+</div>
+
+

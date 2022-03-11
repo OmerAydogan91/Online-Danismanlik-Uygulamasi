@@ -1,0 +1,28 @@
+﻿@using DanismanlikSite.Models;
+@model IEnumerable<tbl_Kategori>
+
+@{
+    ViewBag.Title = "Listele";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<table class="table table-hover table-bordered">
+    <tr class="active">
+        <td>Kategori Adı</td>
+        <td>Açıklama</td>
+        <td>İşlemler</td>
+    </tr>
+    @foreach (tbl_Kategori item in Model)
+    {
+        <tr>
+            <td>@item.KategoriAdi</td>
+            <td>@item.Aciklama</td>
+            <td>
+                <a href="~/Admin/Kategori/KategoriGuncelle/@item.id_Kategori" class="btn btn-success">Güncelle</a>
+                <a href="~/Admin/Kategori/KategoriSil/@item.id_Kategori" class="btn btn-danger">Sil</a>
+            </td>
+        </tr>
+    }
+</table>
+

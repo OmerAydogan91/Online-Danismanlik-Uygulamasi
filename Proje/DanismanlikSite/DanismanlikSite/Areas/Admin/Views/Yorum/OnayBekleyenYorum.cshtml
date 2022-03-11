@@ -1,0 +1,31 @@
+﻿@using DanismanlikSite.Models;
+@model IEnumerable<tbl_Yorum>
+
+@{
+    ViewBag.Title = "OnayBekleyenYorum";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-hover table-bordered">
+    <tr>
+        <th>Proje Adı</th>
+        <th>Yorum</th>
+        <th>Yorum Tarihi</th>
+        <th>Onaylandı mı?</th>
+        <th>İşlemler</th>
+    </tr>
+    @foreach (tbl_Yorum item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(t => item.tbl_Proje.ProjeAdi)</td>
+            <td>@Html.DisplayFor(t => item.Yorum)</td>
+            <td>@Html.DisplayFor(t => item.YorumTarihi)</td>
+            <td>@Html.DisplayFor(t => item.OnaylandiMi)</td>
+            <td>
+                <a href="~/Admin/Yorum/Onayla/@item.id_Yorum" class="btn btn-success">Onayla</a>
+                <a href="~/Admin/Yorum/YorumSil/@item.id_Yorum" class="btn btn-danger">Sil</a>
+            </td>
+        </tr>
+    }
+</table>
+

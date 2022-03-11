@@ -1,0 +1,31 @@
+﻿@using DanismanlikSite.Models;
+@*@model tbl_Kategori*@
+
+
+@{
+    ViewBag.Title = "KategoriGuncelle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("KategoriGuncelle", "Kategori", FormMethod.Post))
+{
+    <input name="id_Kategori" value="@Model.id_Kategori" class="hide" />
+    <table class="table table-hover">
+        <tr>
+            <td><label for="inputKategoriAdi">Kategori Adı</label></td>
+            <td><input type="text" class="form-control" id="inputKategoriAdi" name="KategoriAdi" value="@Model.KategoriAdi" placeholder="Kategori adı giriniz"></td>
+        </tr>
+        <tr>
+            <td><label for="inputKategoriAdi">Açıklama</label></td>
+            <td><input type="text" class="form-control" id="inputKategoriTanimi" name="Aciklama" value="@Model.Aciklama" placeholder="Kategori tanımı giriniz"></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Güncelle" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+
+}
+

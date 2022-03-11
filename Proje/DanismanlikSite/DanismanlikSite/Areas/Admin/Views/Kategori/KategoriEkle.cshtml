@@ -1,0 +1,31 @@
+﻿@using DanismanlikSite.Models;
+
+@{
+    ViewBag.Title = "KategoriEkle";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+  
+    <table class="table table-hover table-bordered">
+        <tr>
+            <td><label for="inputKategoriAdi">Kategori Adı</label></td>
+            <td><input type="text" class="form-control" id="inputKategoriAdi" name="KategoriAdi" placeholder="Kategori adı giriniz"></td>
+        </tr>
+        <tr>
+            <td><label for="inputKategoriAdi">Kategori Açıklama</label></td>
+            <td><input type="text" class="form-control" id="inputKategoriTanimi" name="Aciklama" placeholder="Kategori açıklaması giriniz"></td>
+        </tr>
+       
+      
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Kaydet" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+}
+
+

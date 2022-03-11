@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_DanismanlikModelStoreContainer" CdmEntityContainer="DB_DanismanlikEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="DB_DanismanlikModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_EkDosya">
+      <EntityTypeMapping TypeName="DB_DanismanlikModel.tbl_EkDosya">
+        <MappingFragment StoreEntitySet="tbl_EkDosya">
+          <ScalarProperty Name="id_EkDosya" ColumnName="id_EkDosya" />
+          <ScalarProperty Name="id_Proje" ColumnName="id_Proje" />
+          <ScalarProperty Name="EkDosyaAd" ColumnName="EkDosyaAd" />
+          <ScalarProperty Name="EkDosyaURL" ColumnName="EkDosyaURL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Kategori">
+      <EntityTypeMapping TypeName="DB_DanismanlikModel.tbl_Kategori">
+        <MappingFragment StoreEntitySet="tbl_Kategori">
+          <ScalarProperty Name="id_Kategori" ColumnName="id_Kategori" />
+          <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
+          <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Kullanici">
+      <EntityTypeMapping TypeName="DB_DanismanlikModel.tbl_Kullanici">
+        <MappingFragment StoreEntitySet="tbl_Kullanici">
+          <ScalarProperty Name="id_Kullanici" ColumnName="id_Kullanici" />
+          <ScalarProperty Name="id_KullaniciRol" ColumnName="id_KullaniciRol" />
+          <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+          <ScalarProperty Name="Eposta" ColumnName="Eposta" />
+          <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_KullaniciRol">
+      <EntityTypeMapping TypeName="DB_DanismanlikModel.tbl_KullaniciRol">
+        <MappingFragment StoreEntitySet="tbl_KullaniciRol">
+          <ScalarProperty Name="id_KullaniciRol" ColumnName="id_KullaniciRol" />
+          <ScalarProperty Name="RolAdi" ColumnName="RolAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Proje">
+      <EntityTypeMapping TypeName="DB_DanismanlikModel.tbl_Proje">
+        <MappingFragment StoreEntitySet="tbl_Proje">
+          <ScalarProperty Name="id_Proje" ColumnName="id_Proje" />
+          <ScalarProperty Name="id_Kategori" ColumnName="id_Kategori" />
+          <ScalarProperty Name="ProjeAdi" ColumnName="ProjeAdi" />
+          <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ProjeFoto">
+      <EntityTypeMapping TypeName="DB_DanismanlikModel.tbl_ProjeFoto">
+        <MappingFragment StoreEntitySet="tbl_ProjeFoto">
+          <ScalarProperty Name="id_ProjeFoto" ColumnName="id_ProjeFoto" />
+          <ScalarProperty Name="id_Proje" ColumnName="id_Proje" />
+          <ScalarProperty Name="FotoURL" ColumnName="FotoURL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Yorum">
+      <EntityTypeMapping TypeName="DB_DanismanlikModel.tbl_Yorum">
+        <MappingFragment StoreEntitySet="tbl_Yorum">
+          <ScalarProperty Name="id_Yorum" ColumnName="id_Yorum" />
+          <ScalarProperty Name="id_Kullanici" ColumnName="id_Kullanici" />
+          <ScalarProperty Name="id_Proje" ColumnName="id_Proje" />
+          <ScalarProperty Name="Yorum" ColumnName="Yorum" />
+          <ScalarProperty Name="YorumTarihi" ColumnName="YorumTarihi" />
+          <ScalarProperty Name="OnaylandiMi" ColumnName="OnaylandiMi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_DanismanlikModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tbl_EkDosya">
+    <Key>
+      <PropertyRef Name="id_EkDosya" />
+    </Key>
+    <Property Name="id_EkDosya" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_Proje" Type="Int32" />
+    <Property Name="EkDosyaAd" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="EkDosyaURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_Proje" Relationship="Self.FK_tbl_EkDosya_tbl_Proje" FromRole="tbl_EkDosya" ToRole="tbl_Proje" />
+  </EntityType>
+  <EntityType Name="tbl_Kategori">
+    <Key>
+      <PropertyRef Name="id_Kategori" />
+    </Key>
+    <Property Name="id_Kategori" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KategoriAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Aciklama" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_Proje" Relationship="Self.FK_tbl_Proje_tbl_Kategori" FromRole="tbl_Kategori" ToRole="tbl_Proje" />
+  </EntityType>
+  <EntityType Name="tbl_Kullanici">
+    <Key>
+      <PropertyRef Name="id_Kullanici" />
+    </Key>
+    <Property Name="id_Kullanici" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_KullaniciRol" Type="Int32" />
+    <Property Name="AdSoyad" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Eposta" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_KullaniciRol" Relationship="Self.FK_tbl_Kullanici_tbl_KullaniciRol" FromRole="tbl_Kullanici" ToRole="tbl_KullaniciRol" />
+    <NavigationProperty Name="tbl_Yorum" Relationship="Self.FK_tbl_Yorum_tbl_Kullanici" FromRole="tbl_Kullanici" ToRole="tbl_Yorum" />
+  </EntityType>
+  <EntityType Name="tbl_KullaniciRol">
+    <Key>
+      <PropertyRef Name="id_KullaniciRol" />
+    </Key>
+    <Property Name="id_KullaniciRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RolAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_Kullanici" Relationship="Self.FK_tbl_Kullanici_tbl_KullaniciRol" FromRole="tbl_KullaniciRol" ToRole="tbl_Kullanici" />
+  </EntityType>
+  <EntityType Name="tbl_Proje">
+    <Key>
+      <PropertyRef Name="id_Proje" />
+    </Key>
+    <Property Name="id_Proje" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_Kategori" Type="Int32" />
+    <Property Name="ProjeAdi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_EkDosya" Relationship="Self.FK_tbl_EkDosya_tbl_Proje" FromRole="tbl_Proje" ToRole="tbl_EkDosya" />
+    <NavigationProperty Name="tbl_Kategori" Relationship="Self.FK_tbl_Proje_tbl_Kategori" FromRole="tbl_Proje" ToRole="tbl_Kategori" />
+    <NavigationProperty Name="tbl_ProjeFoto" Relationship="Self.FK_tbl_ProjeFoto_tbl_Proje" FromRole="tbl_Proje" ToRole="tbl_ProjeFoto" />
+    <NavigationProperty Name="tbl_Yorum" Relationship="Self.FK_tbl_Yorum_tbl_Proje" FromRole="tbl_Proje" ToRole="tbl_Yorum" />
+  </EntityType>
+  <EntityType Name="tbl_ProjeFoto">
+    <Key>
+      <PropertyRef Name="id_ProjeFoto" />
+    </Key>
+    <Property Name="id_ProjeFoto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_Proje" Type="Int32" />
+    <Property Name="FotoURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbl_Proje" Relationship="Self.FK_tbl_ProjeFoto_tbl_Proje" FromRole="tbl_ProjeFoto" ToRole="tbl_Proje" />
+  </EntityType>
+  <EntityType Name="tbl_Yorum">
+    <Key>
+      <PropertyRef Name="id_Yorum" />
+    </Key>
+    <Property Name="id_Yorum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_Kullanici" Type="Int32" />
+    <Property Name="id_Proje" Type="Int32" />
+    <Property Name="Yorum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="YorumTarihi" Type="DateTime" Precision="3" />
+    <Property Name="OnaylandiMi" Type="Boolean" />
+    <NavigationProperty Name="tbl_Kullanici" Relationship="Self.FK_tbl_Yorum_tbl_Kullanici" FromRole="tbl_Yorum" ToRole="tbl_Kullanici" />
+    <NavigationProperty Name="tbl_Proje" Relationship="Self.FK_tbl_Yorum_tbl_Proje" FromRole="tbl_Yorum" ToRole="tbl_Proje" />
+  </EntityType>
+  <Association Name="FK_tbl_EkDosya_tbl_Proje">
+    <End Role="tbl_Proje" Type="Self.tbl_Proje" Multiplicity="0..1" />
+    <End Role="tbl_EkDosya" Type="Self.tbl_EkDosya" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Proje">
+        <PropertyRef Name="id_Proje" />
+      </Principal>
+      <Dependent Role="tbl_EkDosya">
+        <PropertyRef Name="id_Proje" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Proje_tbl_Kategori">
+    <End Role="tbl_Kategori" Type="Self.tbl_Kategori" Multiplicity="0..1" />
+    <End Role="tbl_Proje" Type="Self.tbl_Proje" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Kategori">
+        <PropertyRef Name="id_Kategori" />
+      </Principal>
+      <Dependent Role="tbl_Proje">
+        <PropertyRef Name="id_Kategori" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Kullanici_tbl_KullaniciRol">
+    <End Role="tbl_KullaniciRol" Type="Self.tbl_KullaniciRol" Multiplicity="0..1" />
+    <End Role="tbl_Kullanici" Type="Self.tbl_Kullanici" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_KullaniciRol">
+        <PropertyRef Name="id_KullaniciRol" />
+      </Principal>
+      <Dependent Role="tbl_Kullanici">
+        <PropertyRef Name="id_KullaniciRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Yorum_tbl_Kullanici">
+    <End Role="tbl_Kullanici" Type="Self.tbl_Kullanici" Multiplicity="0..1" />
+    <End Role="tbl_Yorum" Type="Self.tbl_Yorum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Kullanici">
+        <PropertyRef Name="id_Kullanici" />
+      </Principal>
+      <Dependent Role="tbl_Yorum">
+        <PropertyRef Name="id_Kullanici" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_ProjeFoto_tbl_Proje">
+    <End Role="tbl_Proje" Type="Self.tbl_Proje" Multiplicity="0..1" />
+    <End Role="tbl_ProjeFoto" Type="Self.tbl_ProjeFoto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Proje">
+        <PropertyRef Name="id_Proje" />
+      </Principal>
+      <Dependent Role="tbl_ProjeFoto">
+        <PropertyRef Name="id_Proje" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Yorum_tbl_Proje">
+    <End Role="tbl_Proje" Type="Self.tbl_Proje" Multiplicity="0..1" />
+    <End Role="tbl_Yorum" Type="Self.tbl_Yorum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Proje">
+        <PropertyRef Name="id_Proje" />
+      </Principal>
+      <Dependent Role="tbl_Yorum">
+        <PropertyRef Name="id_Proje" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_DanismanlikEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tbl_EkDosya" EntityType="Self.tbl_EkDosya" />
+    <EntitySet Name="tbl_Kategori" EntityType="Self.tbl_Kategori" />
+    <EntitySet Name="tbl_Kullanici" EntityType="Self.tbl_Kullanici" />
+    <EntitySet Name="tbl_KullaniciRol" EntityType="Self.tbl_KullaniciRol" />
+    <EntitySet Name="tbl_Proje" EntityType="Self.tbl_Proje" />
+    <EntitySet Name="tbl_ProjeFoto" EntityType="Self.tbl_ProjeFoto" />
+    <EntitySet Name="tbl_Yorum" EntityType="Self.tbl_Yorum" />
+    <AssociationSet Name="FK_tbl_EkDosya_tbl_Proje" Association="Self.FK_tbl_EkDosya_tbl_Proje">
+      <End Role="tbl_Proje" EntitySet="tbl_Proje" />
+      <End Role="tbl_EkDosya" EntitySet="tbl_EkDosya" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Proje_tbl_Kategori" Association="Self.FK_tbl_Proje_tbl_Kategori">
+      <End Role="tbl_Kategori" EntitySet="tbl_Kategori" />
+      <End Role="tbl_Proje" EntitySet="tbl_Proje" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Kullanici_tbl_KullaniciRol" Association="Self.FK_tbl_Kullanici_tbl_KullaniciRol">
+      <End Role="tbl_KullaniciRol" EntitySet="tbl_KullaniciRol" />
+      <End Role="tbl_Kullanici" EntitySet="tbl_Kullanici" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Yorum_tbl_Kullanici" Association="Self.FK_tbl_Yorum_tbl_Kullanici">
+      <End Role="tbl_Kullanici" EntitySet="tbl_Kullanici" />
+      <End Role="tbl_Yorum" EntitySet="tbl_Yorum" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_ProjeFoto_tbl_Proje" Association="Self.FK_tbl_ProjeFoto_tbl_Proje">
+      <End Role="tbl_Proje" EntitySet="tbl_Proje" />
+      <End Role="tbl_ProjeFoto" EntitySet="tbl_ProjeFoto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Yorum_tbl_Proje" Association="Self.FK_tbl_Yorum_tbl_Proje">
+      <End Role="tbl_Proje" EntitySet="tbl_Proje" />
+      <End Role="tbl_Yorum" EntitySet="tbl_Yorum" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

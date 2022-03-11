@@ -1,0 +1,30 @@
+﻿@using DanismanlikSite.Models;
+@model IEnumerable<tbl_ProjeFoto>
+
+@{
+    ViewBag.Title = "FotografListesi";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<table class="table table-hover table-bordered">
+    <tr>
+        <th>Proje Id</th>
+        <th>Proje Adı</th>
+        <th>Foto</th>
+        <th>İşlemler</th>
+    </tr>
+    @foreach (tbl_ProjeFoto item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(t => item.id_Proje)</td>
+            <td>@Html.DisplayFor(t => item.tbl_Proje.ProjeAdi)</td>
+            <td><img src="~/Images/@item.FotoURL" class="pro-img-box" style="width:100px" height="100" /></td>
+            <td>
+                <a href="~/Admin/Proje/FotoGuncelle/@item.id_ProjeFoto" class="btn btn-danger">Güncelle</a>
+                <a href="~/Admin/Proje/FotoSil/@item.id_ProjeFoto" class="btn btn-danger">Sil</a>
+            </td>
+        </tr>
+    }
+</table>
+

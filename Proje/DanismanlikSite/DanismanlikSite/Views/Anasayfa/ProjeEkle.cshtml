@@ -1,0 +1,43 @@
+﻿@using DanismanlikSite.Areas.Admin.Data
+@using DanismanlikSite.Models
+
+@model  ProjeViewModel
+
+@{
+    ViewBag.Title = "ProjeEkle";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+@using (Html.BeginForm("ProjeEkle", "Proje", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table class="table table-hover table-bordered">
+        <tr>
+            <td><label>Proje Adı</label></td>
+            <td>@Html.TextBoxFor(model => model.Proje.ProjeAdi, new { @class = "form-control", required = "required" })</td>
+        </tr>
+        <tr>
+            <td><label>Açıklama</label></td>
+            <td>@Html.TextBoxFor(model => model.Proje.Aciklama, new {@class = "form-control", required = "required" })</td>
+        </tr>
+        <tr>
+            <td><label for="file1">Fotoğraflar (Birden fazla ekleyebilirsiniz)</label></td>
+            <td><input type="file" name="files" id="file1" multiple /></td>
+        </tr>
+        <tr>
+            <td><label for="file2">Ek dosya ekleyiniz (rar,word,excell,pdf)</label></td>
+            <td><input type="file" name="ekdosya" id="file2" runat="server" /></td>
+        </tr>
+        <tr>
+            <td><label>Kategori</label></td>
+            <td>@Html.DropDownListFor(model => model.Proje.id_Kategori, Model.KategoriListesi)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="2">
+                <input type="submit" value="Proje Ekle" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+}
+
+
